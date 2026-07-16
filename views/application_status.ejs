@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Applications</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .application-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+        
+        .application-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .application-card.pending {
+            border-left-color: #f39c12;
+        }
+        
+        .application-card.accepted {
+            border-left-color: #27ae60;
+        }
+        
+        .application-card.rejected {
+            border-left-color: #e74c3c;
+        }
+        
+        .application-card.interview {
+            border-left-color: #3498db;
+        }
+        
+        .company-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .role-name {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-accepted {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-interview {
+            background: #cce7ff;
+            color: #004085;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.3);
+        }
+        
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 154, 158, 0.4);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .stats-bar {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 10px;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .stat-pending .stat-number { color: #f39c12; }
+        .stat-accepted .stat-number { color: #27ae60; }
+        .stat-rejected .stat-number { color: #e74c3c; }
+        .stat-interview .stat-number { color: #3498db; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Your Job Applications</h1>
+        </div>
+        <div class="content">
+            <% if (apps && apps.length > 0) { %>
+                <div class="stats-bar">
+                    <div class="stat-item stat-pending">
+                        <div class="stat-number"><%= apps.filter(app => app.status.toLowerCase() === 'pending').length %></div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-item stat-accepted">
+                        <div class="stat-number"><%= apps.filter(app => app.status.toLowerCase() === 'accepted').length %></div>
+                        <div class="stat-label">Accepted</div>
+                    </div>
+                    <div class="stat-item stat-interview">
+                        <div class="stat-number"><%= apps.filter(app => app.status.toLowerCase() === 'interview').length %></div>
+                        <div class="stat-label">Interview</div>
+                    </div>
+                    <div class="stat-item stat-rejected">
+                        <div class="stat-number"><%= apps.filter(app => app.status.toLowerCase() === 'rejected').length %></div>
+                        <div class="stat-label">Rejected</div>
+                    </div>
+                </div>
+                <% apps.forEach(app => { %>
+                    <div class="application-card <%= app.status.toLowerCase() %>">
+                        <div class="company-name"><%= app.name %></div>
+                        <div class="role-name"><%= app.role_offered %></div>
+                        <span class="status-badge status-<%= app.status.toLowerCase() %>">
+                            <%= app.status %>
+                        </span>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="empty-state">
+                    <h3>No applications yet</h3>
+                    <p>Start applying to companies to see your application status here.</p>
+                </div>
+            <% } %>
+            <a href="/dashboard" class="back-link">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

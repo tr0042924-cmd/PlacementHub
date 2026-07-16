@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Registration - PlacementHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            max-width: 550px;
+            width: 100%;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #10b981, #059669);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: slide 10s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(0); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+
+        .form-section {
+            padding: 40px 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #10b981;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-control:hover {
+            border-color: #d1d5db;
+            background: white;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .currency-input {
+            position: relative;
+        }
+
+        .currency-input::before {
+            content: '₹';
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .currency-input .form-control {
+            padding-left: 40px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            margin: 30px 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .links {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .links a {
+            color: #10b981;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        .links a:hover {
+            color: #059669;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+        }
+
+        .info-box h3 {
+            color: #065f46;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .info-box p {
+            color: #065f46;
+            margin: 0;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+                border-radius: 16px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .form-section {
+                padding: 30px 20px;
+            }
+
+            .form-control {
+                padding: 14px 16px;
+            }
+
+            .currency-input .form-control {
+                padding-left: 36px;
+            }
+
+            .btn {
+                padding: 16px;
+                font-size: 1rem;
+            }
+        }
+
+        .form-animation {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container form-animation">
+        <div class="header">
+            <div class="header-content">
+                <span class="icon">🏢</span>
+                <h1>Company Registration</h1>
+                <p>Find the best talent for your organization</p>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="info-box">
+                <h3>Welcome to PlacementHub!</h3>
+                <p>Join our network of leading companies and connect with talented students from top institutions.</p>
+            </div>
+
+            <form action="/company_register" method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Company Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" class="form-control" required placeholder="Enter company name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Role Offered <span class="required">*</span></label>
+                        <input type="text" id="role" name="role" class="form-control" required placeholder="e.g., Software Engineer, Data Analyst">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="package">Package (Annual CTC) <span class="required">*</span></label>
+                        <div class="currency-input">
+                            <input type="number" id="package" name="package" class="form-control" step="0.01" min="0" required placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="criteria">Eligibility Criteria <span class="required">*</span></label>
+                        <textarea id="criteria" name="criteria" class="form-control" required placeholder="Describe the eligibility requirements, qualifications, and skills needed for this role..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password <span class="required">*</span></label>
+                        <input type="password" id="password" name="password" class="form-control" required placeholder="Create a secure password">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Register Company</button>
+            </form>
+
+            <div class="links">
+                <a href="company_login.html">Already Registered? Sign In</a>
+                <br><br>
+                <a href="index.html">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive feedback
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Form validation feedback
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const btn = document.querySelector('.btn');
+            btn.innerHTML = 'Registering Company...';
+            btn.style.background = 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
+            
+            setTimeout(() => {
+                btn.innerHTML = 'Register Company';
+                btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            }, 2000);
+        });
+
+        // Format currency input
+        document.getElementById('package').addEventListener('input', function(e) {
+            let value = e.target.value;
+            if (value && !isNaN(value)) {
+                // Add thousand separators for better readability
+                let parts = value.split('.');
+                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                e.target.setAttribute('data-formatted', parts.join('.'));
+            }
+        });
+    </script>
+</body>
+</html>

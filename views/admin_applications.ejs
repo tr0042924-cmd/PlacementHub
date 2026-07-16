@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Applications - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .user-info h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-info p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .notification-bell {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification-bell:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .back-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1F2937;
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: #6B7280;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .applications-table {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #F8FAFC, #F1F5F9);
+            padding: 20px 30px;
+            border-bottom: 2px solid #E2E8F0;
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr;
+            gap: 20px;
+            font-weight: 700;
+            color: #374151;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .application-row {
+            padding: 24px 30px;
+            border-bottom: 1px solid #F3F4F6;
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr;
+            gap: 20px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .application-row:last-child {
+            border-bottom: none;
+        }
+
+        .application-row:hover {
+            background: linear-gradient(135deg, #F8FAFC, #F1F5F9);
+            transform: scale(1.01);
+        }
+
+        .cell {
+            font-size: 16px;
+            color: #1F2937;
+            font-weight: 500;
+        }
+
+        .student-cell {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .student-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            flex-shrink: 0;
+        }
+
+        .company-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .company-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .status-badge.accepted {
+            background: linear-gradient(135deg, #DCFCE7, #BBF7D0);
+            color: #166534;
+            border: 2px solid #A7F3D0;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
+        }
+
+        .status-badge.pending {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            color: #92400E;
+            border: 2px solid #FBBF24;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+        }
+
+        .status-badge.rejected {
+            background: linear-gradient(135deg, #FEE2E2, #FECACA);
+            color: #991B1B;
+            border: 2px solid #F87171;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .dashboard-main {
+                padding: 20px 16px;
+            }
+
+            .section-header h2 {
+                font-size: 24px;
+            }
+
+            .table-header, .application-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                text-align: left;
+            }
+
+            .table-header {
+                display: none;
+            }
+
+            .application-row {
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                border: 1px solid #E5E7EB;
+                border-radius: 12px;
+                margin-bottom: 16px;
+                background: white;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .cell {
+                width: 100%;
+            }
+
+            .student-cell {
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="user-avatar">👨‍💼</div>
+                    <div class="user-info">
+                        <h1>All Applications</h1>
+                        <p>Monitor job applications</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="notification-bell">🔔</div>
+                    <a href="/admin" class="back-btn">← Back to Admin</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <div class="applications-overview">
+                <div class="section-header">
+                    <h2>All Job Applications</h2>
+                    <p>Complete overview of student applications</p>
+                </div>
+                
+                <div class="applications-table">
+                    <div class="table-header">
+                        <div class="header-cell">Student</div>
+                        <div class="header-cell">Company</div>
+                        <div class="header-cell">Status</div>
+                    </div>
+                    
+                    <% apps.forEach(app => { %>
+                        <div class="application-row">
+                            <div class="cell student-cell">
+                                <div class="student-avatar">👨‍🎓</div>
+                                <span><%= app.student_name %></span>
+                            </div>
+                            <div class="cell">
+                                <div class="company-info">
+                                    <span class="company-name"><%= app.company_name %></span>
+                                </div>
+                            </div>
+                            <div class="cell">
+                                <span class="status-badge <%= app.status.toLowerCase() %>">
+                                    <% if (app.status === 'Accepted') { %>
+                                        ✅ <%= app.status %>
+                                    <% } else if (app.status === 'Rejected') { %>
+                                        ❌ <%= app.status %>
+                                    <% } else { %>
+                                        ⏳ <%= app.status %>
+                                    <% } %>
+                                </span>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
