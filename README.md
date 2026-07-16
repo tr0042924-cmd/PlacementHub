@@ -137,19 +137,14 @@ node server.js
 
 ---
 
-# 👨‍💻 My Contributions
+## 👨‍💻 My Contributions
 
-This project was developed as a **team project**, where I made major technical contributions.
+As one of the primary contributors to the project, I focused on:
 
-My responsibilities included:
-
-- Backend Development using Node.js & Express.js
-- Database Integration with PostgreSQL
+- Backend Architecture & Development
+- Database Design & Integration (PostgreSQL)
 - REST API Development
-- Authentication & Authorization
-- Resume Upload Module
-- Debugging & Testing
-- Feature Integration
+- Authentication & Resume Management
 
 ---
 
